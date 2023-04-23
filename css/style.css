@@ -1,0 +1,192 @@
+@font-face
+{
+font-family: 'Comica BD';
+src: url('Comica BD.ttf');
+}
+@font-face
+{
+font-family: 'Dafunk_FREE';
+src: url('Dafunk_FREE.otf');
+}
+@font-face{
+font-family: 'DesignerPixels';
+src: url('DesignerPixels.ttf');             
+}
+	*{margin:0;padding:0;}
+                body{
+		overflow:hidden;
+		float:left;
+		background:#6ca;
+		background:-webkit-linear-gradient(tan,#7dc);
+		background:-moz-radial-gradient(#999,#ccc);
+		background:-o-radial-gradient(tan,#7dc);
+		background:-ms-radial-gradient(tan,#7dc);
+                font-family: 'DesignerPixels';
+		width:100%;
+		height:650px;
+		float:left;cursor:url('1.gif'),auto;
+		min-width:320px;
+		min-height:320px;
+		}
+		.main{
+			position:relative;width:100%;float:left;
+			 cursor:url(6.png),auto;
+		}
+                .entrance{
+			width:50%;margin:0 auto;margin-top:150px;
+
+                }
+                button{
+                                display:block;
+                                margin:10%;
+				color:brown;
+				background:#ac6;
+				background:-webkit-linear-gradient(silver,grey);
+				background:-moz-linear-gradient(#cc2,#ffe);
+				border-radius:60px 1%;
+				width:60%;
+                                font-size: 130%;
+				padding:1% 10%;
+                                box-shadow:5px 5px 10px #a33;
+                                font-family: 'Dafunk_FREE';
+				cursor:pointer;
+				letter-spacing:5px;
+				
+                     }
+                button:hover{
+			background:#89a;
+                       background:-webkit-linear-gradient(grey,silver);
+			background:-moz-linear-gradient(#ffe,#cc2);
+		       color:gold;
+		       font-size: 170%;
+		       box-shadow:0px 0px 25px white;
+		       text-shadow:0px 0px 10px blue;
+		       cursor:url(5.png),pointer;
+                }
+		.exit:hover{cursor:url(19.gif),pointer;}
+		.help:hover{ cursor:url(13.png),pointer;}
+		.game{
+			background:-webkit-radial-gradient(#ccc,#666);
+			background:-moz-radial-gradient(#666,#ccc);
+			background:-o-radial-gradient(#ccc,#666);
+			background:-ms-radial-gradient(#ccc,#666);
+			color:blue;
+			padding:17% 20% 20% 30%;
+			width: 100%;
+			height: 100%;
+			box-sizing:border-box;
+			-moz-box-sizing:border-box;
+			-webkit-box-sizing:border-box;
+			//cursor:url(16.gif),auto;
+                       
+		}
+                .game .gameText{font-size: 300%;color:red; font-family: 'DesignerPixels';display:block; }
+		.main .raj{
+			position:relative;
+			z-index: 1;
+			width:50px;
+			height:50px;
+			top:300px;
+			left:50px;
+			background:black;cursor:url(3.png),pointer;
+		}
+		.main ul li{
+			width:10px;
+			background:#222;
+			height:650px;
+			position:relative;
+			list-style:none;cursor:
+		}
+		.main ul{
+			float:left;
+			margin:0 9% 0 30%;
+			//cursor:url(20.gif),auto;
+		}
+		.main ul+ul{margin:0 9%;}
+                .helpPage{
+                                
+                                font-size: 180%;
+                                font-weight: bold;
+                                margin:0 auto;padding:5%;
+                                line-height:1.5em;
+                                width:50%;
+                                text-shadow: 0px 0px 10px #678;
+                                font-family: 'Comica BD';
+				//cursor:url(10.png),auto;
+                }
+                .helpPage button{display:inline;margin:2% 6%;font-size:70%;width:30%;color:blue;background:tan;}
+		.helpPage button:hover{background:orange;color:#ddd;font-size:85%;}
+		.lives, .timeLimit{
+				position: absolute;
+				left:2%;				
+				font-size: 150%;
+				color:maroon;top:0;
+				top:3%;
+				
+		}
+		.timeLimit { top: 7%;}
+		.retry,.menu{
+				padding:0;
+				color:blue;
+				background:yellow;
+				border-radius:50px 1%;
+				font-size:120%;
+				height:50px;
+				width:30%;margin:2%;float:left;
+		}
+                .retry:hover,.menu:hover{background:silver;font-size:140%;cursor:url(21.gif),pointer;}
+		//.back:hover{cursor:url(12.png),auto;}
+		//.retry:hover{cursor:url(14.gif),pointer;}
+/*-----media queries-----*/
+
+@media (max-width:960px) {
+	.main .raj{width:45px !important;height:45px !important;margin-left:-10px;}
+	//.main ul{margin:0 8.5% 0 28%;}
+	//.main ul+ul{margin:0 8.5%;}
+	.main ul li{width:8px;}
+	.helpPage{padding:0;width:80%;font-size:160%;}
+	.lives{font-size:130%;}
+	button{font-size:110%;}
+	button:hover{font-size:120%;}
+	.retry,.menu{font-size:100%;height:40px;width:35%;}
+	.retry:hover,.menu:hover{font-size:110%;}
+	.game .gameText{font-size: 250%;}
+}
+@media (max-width:640px){
+	.main .raj{width:40px !important;height:40px !important;margin-left:-20px;}
+	//.main ul{margin:0 5% 0 20%;}
+	//.main ul+ul{margin:0 5%;}
+	.main ul li{width:6px;}
+	.helpPage{padding:0;width:100%;font-size:140%;}
+	button{font-size:90%;}
+	button:hover{font-size:100%;}
+	.retry,.menu{font-size:80%;height:30px;}
+	.retry:hover,.menu:hover{font-size:90%;}
+	.game .gameText{font-size: 200%;}
+}
+@media (max-width:480px){
+	.main .raj{margin-left:-30px;}
+	//.main ul{margin:0 5% 0 17%;}
+	//.main ul+ul{margin:0 4%;}
+	.main ul li{width:5px;}
+	.helpPage{padding:0;font-size:100%;}
+	.lives{font-size:110%;}
+	.retry,.menu{font-size:60%;height:20px;width:40%;}
+	.retry:hover,.menu:hover{font-size:70%;}
+	.game .gameText{font-size: 150%;}
+}
+@media (max-height:600px){
+	.main .raj{height:45px;width:45px;top:270px}	
+	.main ul li{height:610px;}
+	
+	
+}
+@media (max-height:520px){
+	.main .raj{height:40px;width:40px;top:250px;}
+	.main ul li{height:530px;}.helpPage{padding:0;}
+	
+}
+@media (max-height:460px){
+	.main .raj{top:180px;}
+	.main ul li{height:470px;}
+}
