@@ -96,7 +96,7 @@ $(document).ready(function(){
                         case 45:switch(raj.height()){case 45:boxMove(5,15);break;}break;
                         case 40:switch(raj.height()){case 40:boxMove(-5,10);break;}break;
                 }
-                if(flag==1)flag=0;		                      
+                //if(flag==1)flag=0;		                      
                 if(bw>=$(".main").width()){
                         $(".main").hide();
                         $(".game").show();
