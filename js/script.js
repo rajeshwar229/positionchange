@@ -113,8 +113,9 @@ $(document).ready(function(){
                         $(".gameText").html("Congrats..U Won.!!").css("color","blue");
         }});
                 
-        if($(".main").is(":visible")){
-                setInterval(function(){
+        
+        setInterval(function(){
+                if($(".main").is(":visible")){
                         $("li").each(function(){
                                 boxLeft = raj.position().left;
                                 boxTop = raj.position().top;
@@ -130,8 +131,8 @@ $(document).ready(function(){
                                         raj.css({"left":"3%" ,"top":"48%"});
                                 }
                         });
-                },10);
-        }
+                }
+        },10);
 
         raj.on("mouseleave touchend",function(event){
                 raj.unbind("touchmove");
