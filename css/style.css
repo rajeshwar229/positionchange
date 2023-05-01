@@ -209,15 +209,15 @@ button:hover{
 		font-size: 3rem;
 	}
 	.main .raj{
-		width: 150px;
-		height: 150px;
+		width: 100px;
+		height: 100px;
 		box-shadow: -10px -10px 10px;
 	}
 }
-@media (orientation: landscape) and (max-width: 840px) {
+@media (orientation: landscape) and (max-height: 480px) {
 	.main .raj{
-		width: 80px;
-		height: 80px;
+		width: 70px;
+		height: 70px;
 		box-shadow: -10px -10px 10px;
 	}
 }
