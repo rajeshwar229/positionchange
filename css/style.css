@@ -69,7 +69,6 @@ button:hover{
 	background:-webkit-linear-gradient(grey,silver);
 	background:-moz-linear-gradient(#ffe,#cc2);
 	color:gold;
-	font-size: 1.7rem;
 	box-shadow:0px 0px 25px white;
 	text-shadow:0px 0px 10px blue;
 	cursor:url(5.png),pointer;
@@ -185,6 +184,7 @@ button:hover{
 	}
 	.helpPage{		
 		width: 85%;
+		font-size: 1.4rem;
 	}
 	.entrance{
 		width: 80%;
