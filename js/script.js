@@ -26,6 +26,29 @@ $(document).ready(function(){
                 $(".helpPage").fadeIn(300);$(".entrance").hide(200);
         });
         
+        $(".fullScreen").on('click',function(){
+                let de = document.documentElement;
+                if(this.dataset.fullscreen === 'off'){
+                        if(de.requestFullscreen){
+                        de.requestFullscreen();
+                        }
+                        else if(de.mozRequestFullscreen){de.mozRequestFullscreen();}
+                        else if(de.webkitRequestFullscreen){de.webkitRequestFullscreen();}
+                        else if(de.msRequestFullscreen){de.msRequestFullscreen();}
+                        screen.orientation.lock('landscape');
+                        $(this).attr("data-fullscreen","on")
+                        $(this).text("Exit Full Screen");
+                }
+                else {
+                        screen.orientation.unlock();
+                        if(document.fullscreen){
+                        document.exitFullscreen();
+                        }
+                        $(this).attr("data-fullscreen","off")
+                        $(this).text("Full Screen");
+                }
+        });
+
         $(".back").click(function(){
                 $(".entrance").show(300);$(".helpPage").fadeOut(200);
         });
