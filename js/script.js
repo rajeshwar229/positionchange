@@ -100,36 +100,44 @@ $(document).ready(function(){
                 const boxMove = function (a,b){
                         raj.css({"left":touchLeft-a,"top":touchTop-b, "background":"rgb("+Math.round(Math.random()*255) +","+Math.round(Math.random()*255) +","+Math.round(Math.random()*255) +")"});
                 }
-                boxMove(boxWidth/1.5,boxHeight/1.5);                      
+                if(boxWidth >= 70){
+                        boxMove(boxWidth/1.5,boxHeight/1.5);
+                }
+                else {
+                        boxMove(boxWidth/3,boxHeight/3);
+                }
+                                      
                 if(boxRelativeWidth >= $(".main").width()){
                         $(".main").hide();
                         $(".game").show();
                         $(".gameText").html("Congrats..U Won.!!").css("color","blue");
         }});
                 
-        setInterval(function(){
-                $("li").each(function(){
-                        boxLeft = raj.position().left;
-                        boxTop = raj.position().top;
-                        boxRelativeWidth = boxLeft + raj.width();
-                        boxRelativeHeight = boxTop + raj.height(); 
-                        let lineLeft = $(this).position().left;
-                        let lineTop = $(this).position().top;
-                        let lineWidth = lineLeft+$(this).width();
-                        let lineHeight = lineTop+$(this).height();
-                        if(boxRelativeWidth > lineLeft && boxLeft < lineWidth && boxRelativeHeight > lineTop && boxTop < lineHeight){
-                                flag = 1;
-                                raj.unbind("touchmove");
-                                raj.css({"left":"3%" ,"top":"48%"});
-                        }
-                        else {
-                                flag = 0; 
-                        }
-                });
-        },10);
+        if($(".main").is(":visible")){
+                setInterval(function(){
+                        $("li").each(function(){
+                                boxLeft = raj.position().left;
+                                boxTop = raj.position().top;
+                                boxRelativeWidth = boxLeft + raj.width();
+                                boxRelativeHeight = boxTop + raj.height(); 
+                                let lineLeft = $(this).position().left;
+                                let lineTop = $(this).position().top;
+                                let lineWidth = lineLeft+$(this).width();
+                                let lineHeight = lineTop+$(this).height();
+                                if(boxRelativeWidth > lineLeft && boxLeft < lineWidth && boxRelativeHeight > lineTop && boxTop < lineHeight){
+                                        flag = 1;
+                                        raj.unbind("touchmove");
+                                        raj.css({"left":"3%" ,"top":"48%"});
+                                }
+                        });
+                },10);
+        }
 
-        raj.on("mouseleave touchend",function(){
+        raj.on("mouseleave touchend",function(event){
                 raj.unbind("touchmove");
+                if(event.type === "touchend"){
+                        //alert(flag);
+                }
                 lives();
                 flag = 0;
                 if(life == 0){
