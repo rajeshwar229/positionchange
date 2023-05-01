@@ -95,8 +95,7 @@ $(document).ready(function(){
                         case 50:switch(raj.height()){case 50:boxMove(20,20);break;}break;
                         case 45:switch(raj.height()){case 45:boxMove(5,15);break;}break;
                         case 40:switch(raj.height()){case 40:boxMove(-5,10);break;}break;
-                }
-                //if(flag==1)flag=0;		                      
+                }		                      
                 if(bw>=$(".main").width()){
                         $(".main").hide();
                         $(".game").show();
@@ -115,14 +114,14 @@ $(document).ready(function(){
                         lh=lt+$("li").height();
                         if(bw>ll && boxLeft<lw && bh>lt && boxTop<lh){
                                 flag=1;
-                                $(document).unbind("touchmove touchstart");
+                                raj.unbind("touchmove");
                                 raj.css({"left":"3%" ,"top":"48%"});
                         }
                 });
         },1);
 
         raj.on("mouseleave touchend",function(){
-                $(document).unbind("touchmove");
+                raj.unbind("touchmove");
                 lives();
                 flag=0;
                 if(l==0){
