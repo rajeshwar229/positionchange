@@ -214,10 +214,10 @@ button:hover{
 		box-shadow: -10px -10px 10px;
 	}
 }
-@media (orientation: landscape) and (max-width: 741px) {
+@media (orientation: landscape) and (max-width: 840px) {
 	.main .raj{
-		width: 100px;
-		height: 100px;
+		width: 80px;
+		height: 80px;
 		box-shadow: -10px -10px 10px;
 	}
 }
