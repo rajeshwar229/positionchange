@@ -175,6 +175,15 @@ button:hover{
 		height: 100px;
 		box-shadow: -10px -10px 10px;
 	}
+	.helpPage{
+		width: 100%;
+	}
+	.helpPage button {
+		display: flex;
+		margin: 10% auto;
+		width: 75%;
+		justify-content: center;
+	}
 }
 @media (orientation: landscape) and (max-height: 480px) {
 	.main .raj{
