@@ -46,7 +46,7 @@ body{
     justify-content: flex-start;
     align-items: center;
 }
-.entrance h1{
+h1{
 	margin-top: 5%;
 }
 button{
@@ -81,7 +81,9 @@ button:hover{
 	background:-o-radial-gradient(#ccc,#666);
 	background:-ms-radial-gradient(#ccc,#666);
 	color:blue;
-	padding:17% 20% 20% 30%;
+	margin: 0 auto;
+	padding: 5% 0;
+	text-align: center;
 	width: 100%;
 	height: 100%;
 	box-sizing:border-box;
@@ -89,7 +91,6 @@ button:hover{
 	-webkit-box-sizing:border-box;
 }
 .game .gameText{
-	font-size: 3rem;
 	color:red;
 	font-family: 'DesignerPixels';
 }
@@ -139,15 +140,10 @@ button:hover{
 	top:3%;
 }
 .retry, .menu{
-	padding:0;
 	color:blue;
 	background:yellow;
-	border-radius:50px 1%;
-	font-size:1.2rem;
-	height:50px;
-	width:30%;
-	margin:2%;
-	float:left;
+	margin:5% auto;
+	display: block;
 }
 .retry:hover,.menu:hover{
 	background:silver;
@@ -163,7 +159,7 @@ button:hover{
 	.entrance{
 		width: 100%;
 	}
-	.entrance h1{
+	h1{
 		font-size: 5rem;
 	}
 	button{
