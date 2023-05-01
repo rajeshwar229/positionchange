@@ -177,6 +177,9 @@ button:hover{
 	}
 	.helpPage{
 		width: 100%;
+		font-size: 5rem;
+		height: 100%;
+		background: -webkit-linear-gradient(tan,#7dc);
 	}
 	.helpPage button {
 		display: flex;
