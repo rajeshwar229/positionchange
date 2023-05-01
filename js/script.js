@@ -118,14 +118,17 @@ $(document).ready(function(){
                         let lineWidth = lineLeft+$(this).width();
                         let lineHeight = lineTop+$(this).height();
                         if(boxRelativeWidth > lineLeft && boxLeft < lineWidth && boxRelativeHeight > lineTop && boxTop < lineHeight){
-                                flag=1;
+                                flag = 1;
                                 raj.unbind("touchmove");
                                 raj.css({"left":"3%" ,"top":"48%"});
+                        }
+                        else {
+                                flag = 0; 
                         }
                 });
         },10);
 
-        raj.on("mouseleave",function(){
+        raj.on("mouseleave touchend",function(){
                 raj.unbind("touchmove");
                 lives();
                 flag = 0;
