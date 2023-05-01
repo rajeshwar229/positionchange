@@ -130,15 +130,7 @@ button:hover{
 .helpPage button{
 	display:inline;
 	margin:2% 6%;
-	font-size:0.7rem;
 	width:30%;
-	color:blue;
-	background:tan;
-}
-.helpPage button:hover{
-	background:orange;
-	color:#ddd;
-	font-size:85%;
 }
 .lives{
 	position: absolute;
@@ -193,5 +185,15 @@ button:hover{
 	}
 	.helpPage{		
 		width: 85%;
+	}
+	.entrance{
+		width: 80%;
+	}
+	button {
+		width: 75%;
+		margin: 2%;
+	}
+	button:hover {
+		font-size: 1.3rem;
 	}
 }
