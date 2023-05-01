@@ -163,6 +163,9 @@ button:hover{
 	font-size:140%;
 	cursor:url(21.gif),pointer;
 }
+.disable-dbl-tap-zoom {
+    touch-action: manipulation;
+}
 /*-----media queries-----*/
 
 @media (max-width:960px) {
@@ -216,5 +219,13 @@ button:hover{
 	button{
 		margin: 10%;
 		font-size: 3rem;
+	}
+	.raj{
+		box-shadow: -10px -10px 10px;
+	}
+}
+@media (orientation: portrait) {
+	.raj{
+		box-shadow: -10px -10px 10px;
 	}
 }
