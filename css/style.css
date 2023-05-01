@@ -47,7 +47,7 @@ body{
     align-items: center;
 }
 .entrance h1{
-	margin-top: 4%;
+	margin-top: 5%;
 }
 button{
 	font-family: 'Dafunk_FREE';
@@ -88,21 +88,19 @@ button:hover{
 	box-sizing:border-box;
 	-moz-box-sizing:border-box;
 	-webkit-box-sizing:border-box;
-				
 }
 .game .gameText{
 	font-size: 3rem;
 	color:red;
 	font-family: 'DesignerPixels';
-	display:block; 
 }
 .main .raj{
-	position:relative;
+	position: relative;
 	z-index: 1;
 	width:50px;
 	height:50px;
-	top:300px;
-	left:50px;
+	top:48%;
+	left:3%;
 	background:black;
 	cursor:url(3.png),pointer;
 }
@@ -122,8 +120,9 @@ button:hover{
 .helpPage{		
 	font-size: 1.8rem;
 	font-weight: bold;
-	margin:0 auto;padding:5%;
-	line-height:1.5em;
+	margin:0 auto;
+	padding:5%;
+	line-height: 1.5em;
 	width:50%;
 	text-shadow: 0px 0px 10px #678;
 	font-family: 'Comica BD';
@@ -141,15 +140,14 @@ button:hover{
 	color:#ddd;
 	font-size:85%;
 }
-.lives, .timeLimit{
+.lives{
 	position: absolute;
 	left:2%;				
 	font-size: 1.5rem;
-	color:maroon;top:0;
+	color:maroon;
 	top:3%;
 }
-.timeLimit { top: 7%;}
-.retry,.menu{
+.retry, .menu{
 	padding:0;
 	color:blue;
 	background:yellow;
@@ -206,4 +204,17 @@ button:hover{
 }
 @media (max-height:460px){
 	.main .raj{top:180px;}
+}
+
+@media (orientation: portrait) {
+	.entrance{
+		width: 100%;
+	}
+	h1{
+		font-size: 5rem;
+	}
+	button{
+		margin: 10%;
+		font-size: 3rem;
+	}
 }
