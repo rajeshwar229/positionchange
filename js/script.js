@@ -76,7 +76,7 @@ $(document).ready(function(){
 
         $(document).bind("contextmenu",function(q){return false;});
         $(document).on("mouseleave",function(){setPos();});
-        raj.on("mouseenter touchstart",function(){$(document).on("mousemove touchmove",move);});
+        raj.on("mouseenter",function(){$(document).on("mousemove touchmove",move);});
         $(document).one("mousemove touchmove",move=function(event){         
                 if($(".main").is(":visible")){
                         var bl=parseInt(event.pageX);
@@ -119,6 +119,7 @@ $(document).ready(function(){
         },1);
 
         raj.on("mouseleave touchend",function(){
+                $(document).unbind("touchmove");
                 lives();
                 flag=0;
                 if(l==0){
