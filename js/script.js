@@ -125,7 +125,7 @@ $(document).ready(function(){
                 });
         },10);
 
-        raj.on("mouseleave touchend",function(){
+        raj.on("mouseleave",function(){
                 raj.unbind("touchmove");
                 lives();
                 flag = 0;
