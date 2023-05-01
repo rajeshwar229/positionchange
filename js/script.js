@@ -76,7 +76,9 @@ $(document).ready(function(){
 
         $(document).bind("contextmenu",function(q){return false;});
         $(document).on("mouseleave",function(){setPos();});
-        raj.on("mouseenter",function(){$(document).on("mousemove touchmove",move);});
+        raj.on("mouseenter touchstart",function(event){
+                raj.on("mousemove touchmove",move);
+        });
         $(document).one("mousemove touchmove",move=function(event){         
                 if($(".main").is(":visible")){
                         var bl=parseInt(event.pageX);
