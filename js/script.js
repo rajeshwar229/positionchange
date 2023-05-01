@@ -115,6 +115,7 @@ $(document).ready(function(){
                         lh=lt+$("li").height();
                         if(bw>ll && boxLeft<lw && bh>lt && boxTop<lh){
                                 flag=1;
+                                $(document).unbind("touchmove touchstart");
                                 raj.css({"left":"3%" ,"top":"48%"});
                         }
                 });
