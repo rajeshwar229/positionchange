@@ -169,7 +169,6 @@ button:hover{
 /*-----media queries-----*/
 
 @media (max-width:960px) {
-	.main .raj{width:45px !important;height:45px !important;margin-left:-10px;}
 	.main ul li{width:8px;}
 	.helpPage{padding:0;width:80%;font-size:1.6rem;}
 	.lives{font-size:1.3rem;}
@@ -180,7 +179,6 @@ button:hover{
 	.game .gameText{font-size: 2.5rem;}
 }
 @media (max-width:640px){
-	.main .raj{width:40px !important;height:40px !important;margin-left:-20px;}
 	.main ul li{width:6px;}
 	.helpPage{padding:0;width:100%;font-size:1.4rem;}
 	button{font-size:0.9rem;}
@@ -198,34 +196,28 @@ button:hover{
 	.retry:hover,.menu:hover{font-size:0.7rem;}
 	.game .gameText{font-size: 1.5rem;}
 }
-@media (max-height:600px){
-	.main .raj{height:45px;width:45px;top:270px}
-}
-@media (max-height:520px){
-	.main .raj{height:40px;width:40px;top:250px;}
-	.helpPage{padding:0;}
-}
-@media (max-height:460px){
-	.main .raj{top:180px;}
-}
 
 @media (orientation: portrait) {
 	.entrance{
 		width: 100%;
 	}
-	h1{
+	.entrance h1{
 		font-size: 5rem;
 	}
 	button{
 		margin: 10%;
 		font-size: 3rem;
 	}
-	.raj{
+	.main .raj{
+		width: 150px;
+		height: 150px;
 		box-shadow: -10px -10px 10px;
 	}
 }
-@media (orientation: portrait) {
-	.raj{
+@media (orientation: landscape) and (max-width: 640px) {
+	.main .raj{
+		width: 100px;
+		height: 100px;
 		box-shadow: -10px -10px 10px;
 	}
 }
