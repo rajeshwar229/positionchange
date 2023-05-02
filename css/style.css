@@ -30,10 +30,14 @@ body{
 	float:left;
 	cursor:url('bug.gif'),auto;
 }
+
+.d-none{
+	display: none;
+}
+.d-block{
+	display: block;
+}
 .main{
-	position:relative;
-	width:100%;
-	float:left;
 	cursor:url(sword.png),auto;
 	height: 100%;
 }
@@ -59,14 +63,16 @@ button{
 	border-radius:60px 1%;
 	width:60%;
 	font-size: 1.3rem;
-	padding:1% 10%;
+	padding: 1% 5%;
 	box-shadow:5px 5px 10px #a33;
 	cursor:url(weRock.png),pointer;
 	letter-spacing:5px;
 }
-button a {
-	color: inherit;
-    text-decoration: inherit;
+
+.moreGames {
+	display: contents;
+}
+.moreGames button {
 	cursor: url(moreGames.png), pointer;
 }
 button:hover{
@@ -80,16 +86,15 @@ button:hover{
 .play {cursor: url(play.png), pointer;}
 .help{ cursor:url(help.png), pointer;}
 .fullScreen {cursor: url(fullscreen.png), pointer;}
-.moreGames {cursor: url(moreGames.png), pointer;}
 .exit{cursor:url(exit.gif), pointer;}
-.game{
+.result{
 	background:-webkit-radial-gradient(#ccc,#666);
 	background:-moz-radial-gradient(#666,#ccc);
 	background:-o-radial-gradient(#ccc,#666);
 	background:-ms-radial-gradient(#ccc,#666);
 	color:blue;
 	margin: 0 auto;
-	padding: 5% 0;
+	padding: 5%;
 	text-align: center;
 	width: 100%;
 	height: 100%;
@@ -97,12 +102,12 @@ button:hover{
 	-moz-box-sizing:border-box;
 	-webkit-box-sizing:border-box;
 }
-.game .gameText{
+.result .resultText{
 	color:red;
 	font-family: 'DesignerPixels';
 }
-.main .raj{
-	position: relative;
+.main .gameBox{
+	position: absolute;
 	z-index: 1;
 	width:50px;
 	height:50px;
@@ -111,19 +116,19 @@ button:hover{
 	background:black;
 	cursor:url(3.png),pointer;
 }
-.main ul li{
-	width:10px;
-	background:#222;
-	height:100%;
-	position:relative;
-	list-style:none;
+.main .bars .bar{
+	width: 1%;
+    background: #222;
+    height: 100%;
+    position: relative;
+    margin: 0 10%;
 }
-.main ul{
-	float:left;
-	margin:0 9% 0 30%;
-	height: 100%;
+.main .bars{
+	display: inline-flex;
+    margin-left: 15%;
+    width: 100%;
+    height: 100%;
 }
-.main ul+ul{margin:0 9%;}
 .helpPage{		
 	font-size: 1.8rem;
 	font-weight: bold;
@@ -146,10 +151,11 @@ button:hover{
 	color:maroon;
 	top:3%;
 }
-.retry, .menu{
+.result button{
 	color:blue;
 	background:yellow;
 	margin:5% auto;
+	width: 25%;
 	display: block;
 	cursor:url(laserPen.gif),pointer;
 }
@@ -158,7 +164,6 @@ button:hover{
 }
 .retry:hover,.menu:hover{
 	background:silver;
-	font-size:140%;
 }
 .disable-dbl-tap-zoom {
     touch-action: manipulation;
@@ -172,7 +177,7 @@ button:hover{
 	button {
 		width: 90%;
 	}
-	.main .raj{
+	.main .gameBox{
 		box-shadow: -10px -10px 10px;
 	}
 	.helpPage{
@@ -186,11 +191,12 @@ button:hover{
 		width: 100%;
 		justify-content: center;
 	}
+	.result button{
+		width: 100%;
+	}
 }
 @media (orientation: landscape) and (max-height: 480px) {
-	.main .raj{
-		width: 70px;
-		height: 70px;
+	.main .gameBox{
 		box-shadow: -10px -10px 10px;
 	}
 	h1 {
