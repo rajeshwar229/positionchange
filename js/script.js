@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-        var raj=$(".raj"), life = 3, flag = 0, boxWidth = raj.width(), boxRelativeWidth = 0, boxRelativeHeight = 0, boxHeight = raj.height(), x = 0, move = null, boxLeft = 0, boxTop = 0;
+        var raj=$(".gameBox"), life = 3, flag = 0, boxWidth = raj.width(), boxRelativeWidth = 0, boxRelativeHeight = 0, boxHeight = raj.height(), boxLeft = 0, boxTop = 0;
 
         const setPos = function(){$(document).off("mousemove");};
 
@@ -12,7 +12,34 @@ $(document).ready(function(){
                 }
                 $(".lives").text("lives x "+ life);
         }
-        $(".main,.helpPage,.game").hide();
+
+        const move = function(event){         
+                if($(".main").is(":visible")){
+                        var touchLeft = parseInt(event.pageX);
+                        var touchTop = parseInt(event.pageY);
+                        if(event.type === "touchmove"){
+                                touchLeft = event.originalEvent.changedTouches[0].clientX;
+                                touchTop = event.originalEvent.changedTouches[0].clientY;
+                        }
+                        const boxMove = function (a,b){
+                                raj.css({"left":touchLeft-a,"top":touchTop-b, "background":"rgb("+Math.round(Math.random()*255) +","+Math.round(Math.random()*255) +","+Math.round(Math.random()*255) +")"});
+                        }
+                        if(boxWidth >= 70){
+                                boxMove(boxWidth/1.5,boxHeight/1.5);
+                        }
+                        else {
+                                boxMove(boxWidth/3,boxHeight/3);
+                        }
+                                              
+                        if(boxRelativeWidth >= $(".main").width()){
+                                $(".main").hide();
+                                $(".result").show();
+                                $(".resultText").html("Congrats..U Won.!!").css("color","blue");
+                                raj.css({"left":"3%" ,"top":"48%"});
+                        }
+                }
+                
+        }
 
         $(".play").click(function(){
                 $(".main").fadeIn(300);
@@ -65,7 +92,7 @@ $(document).ready(function(){
         });
         $(".retry").click(function(){
                 life = 3;
-                $(".game").slideToggle(200);
+                $(".result").slideToggle(200);
                 $(".main").slideToggle(300);
                 $(".lives").text("lives x "+ life);
                 raj.css({"left":"3%" ,"top":"48%"});
@@ -73,7 +100,7 @@ $(document).ready(function(){
 
         $(".menu").click(function(){
                 $(".entrance").toggle(300);
-                $(".game").fadeToggle(200);
+                $(".result").fadeToggle(200);
         });		
         
         $(window).on('resize', function(){
@@ -82,28 +109,28 @@ $(document).ready(function(){
 
         setInterval(function(){
                 if($(".main").is(":visible")){
-                        $("li:odd").animate({top:boxHeight*2},200).animate({top:boxHeight*(-1)},500);
-                        $("li:even").animate({top:boxHeight*(-1)},200).animate({top:boxHeight*(-2)},500);
+                        $(".bars .bar:odd").animate({top:"100px"},200).animate({top:0},500);
+                        $(".bars .bar:even").animate({top:"-100px"},200).animate({top:0},500);
                 }
         },1000);
 
         $(window).keypress(function(a){
                 if($(".main").is(":visible")){
-                        if(a.which==120){
+                        if(a.which === 120){
                                 a.preventDefault();
                                 $(".main").hide();
                                 $(".entrance").show();
                                 return 0;
                         }
-                        if(a.which==32 && x == 0){
-                                x = 1;
+                        if(a.which === 32 && $(".main").data("paused") === "off"){
+                                $(".main").data("paused","on");
                                 $("body").css("opacity",0.5);
                                 setPos();
                                 raj.hide();
                                 jQuery.fx.off=true;
                         }
                         else{
-                                x = 0;
+                                $(".main").data("paused","off");
                                 $("body").css("opacity",1);
                                 jQuery.fx.off=false;
                                 raj.show();
@@ -118,43 +145,20 @@ $(document).ready(function(){
         raj.on("mouseenter touchstart",function(event){
                 raj.on("mousemove touchmove",move);
         });
-        $(document).one("mousemove touchmove",move=function(event){         
-                if($(".main").is(":visible")){
-                        var touchLeft = parseInt(event.pageX);
-                        var touchTop = parseInt(event.pageY);
-                        if(event.type === "touchmove"){
-                                touchLeft = event.originalEvent.changedTouches[0].clientX;
-                                touchTop = event.originalEvent.changedTouches[0].clientY;
-                        }
-                }
-                const boxMove = function (a,b){
-                        raj.css({"left":touchLeft-a,"top":touchTop-b, "background":"rgb("+Math.round(Math.random()*255) +","+Math.round(Math.random()*255) +","+Math.round(Math.random()*255) +")"});
-                }
-                if(boxWidth >= 70){
-                        boxMove(boxWidth/1.5,boxHeight/1.5);
-                }
-                else {
-                        boxMove(boxWidth/3,boxHeight/3);
-                }
-                                      
-                if(boxRelativeWidth >= $(".main").width()){
-                        $(".main").hide();
-                        $(".game").show();
-                        $(".gameText").html("Congrats..U Won.!!").css("color","blue");
-        }});
+        raj.on("mousemove touchmove", move);
                 
         
         setInterval(function(){
                 if($(".main").is(":visible")){
-                        $("li").each(function(){
-                                boxLeft = raj.position().left;
-                                boxTop = raj.position().top;
-                                boxRelativeWidth = boxLeft + raj.width();
-                                boxRelativeHeight = boxTop + raj.height(); 
-                                let lineLeft = $(this).position().left;
-                                let lineTop = $(this).position().top;
-                                let lineWidth = lineLeft+$(this).width();
-                                let lineHeight = lineTop+$(this).height();
+                        $(".bars .bar").each(function(){
+                                boxLeft = raj.offset().left;
+                                boxTop = raj.offset().top;
+                                boxRelativeWidth = boxLeft + raj.innerWidth();
+                                boxRelativeHeight = boxTop + raj.innerHeight(); 
+                                let lineLeft = $(this).offset().left;
+                                let lineTop = $(this).offset().top;
+                                let lineWidth = lineLeft+$(this).innerWidth();
+                                let lineHeight = lineTop+$(this).innerHeight();
                                 if(boxRelativeWidth > lineLeft && boxLeft < lineWidth && boxRelativeHeight > lineTop && boxTop < lineHeight){
                                         flag = 1;
                                         raj.unbind("touchmove");
@@ -166,16 +170,13 @@ $(document).ready(function(){
 
         raj.on("mouseleave touchend",function(event){
                 raj.unbind("touchmove");
-                if(event.type === "touchend"){
-                        //alert(flag);
-                }
                 lives();
                 flag = 0;
                 if(life == 0){
                         life = 3;
                         $(".main").hide();
-                        $(".game").show();
-                        $(".gameText").html("GAME OVER...!!");
+                        $(".result").show();
+                        $(".resultText").html("GAME OVER...!!");
                         raj.css({"left":"3%" ,"top":"48%"});
                 }
         });
