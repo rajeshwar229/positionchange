@@ -41,6 +41,7 @@ $(document).ready(function(){
                 
         }
 
+        $(".container").hide();
         $(".play").click(function(){
                 $(".main").fadeIn(300);
                 $(".entrance").slideUp(200);
@@ -111,6 +112,7 @@ $(document).ready(function(){
                 if($(".main").is(":visible")){
                         $(".bars .bar:odd").animate({top:"100px"},200).animate({top:0},500);
                         $(".bars .bar:even").animate({top:"-100px"},200).animate({top:0},500);
+                        
                 }
         },1000);
 
