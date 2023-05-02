@@ -19,7 +19,6 @@ html, body{
 }
 body{
 	overflow:hidden;
-	float:left;
 	background:#6ca;
 	background:-webkit-linear-gradient(tan,#7dc);
 	background:-moz-radial-gradient(#999,#ccc);
@@ -27,19 +26,13 @@ body{
 	background:-ms-radial-gradient(tan,#7dc);
 	font-family: 'DesignerPixels';
 	width:100%;
-	float:left;
 	cursor:url('bug.gif'),auto;
 }
 
-.d-none{
-	display: none;
-}
-.d-block{
-	display: block;
-}
 .main{
 	cursor:url(sword.png),auto;
 	height: 100%;
+	display: flex;
 }
 .entrance{
 	font-family: 'Dafunk_FREE';
@@ -121,10 +114,10 @@ button:hover{
     background: #222;
     height: 100%;
     position: relative;
-    margin: 0 10%;
+    margin: 0 11%;
 }
 .main .bars{
-	display: inline-flex;
+	display: flex;
     margin-left: 15%;
     width: 100%;
     height: 100%;
