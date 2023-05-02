@@ -169,12 +169,16 @@ button:hover{
 	.entrance{
 		width: 100%;
 	}
+	button {
+		width: 90%;
+	}
 	.main .raj{
 		box-shadow: -10px -10px 10px;
 	}
 	.helpPage{
 		width: 90%;
 		height: 100%;
+		font-size: 1.6rem;
 	}
 	.helpPage button {
 		display: flex;
