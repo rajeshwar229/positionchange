@@ -75,32 +75,39 @@ $(document).ready(function(){
                 $(".entrance").toggle(300);
                 $(".game").fadeToggle(200);
         });		
-                        
+        
+        $(window).on('resize', function(){
+                
+        });
+
         setInterval(function(){
-                $("li:odd").animate({top:boxHeight*2},200).animate({top:boxHeight*(-1)},500);
-                $("li:even").animate({top:boxHeight*(-1)},200).animate({top:boxHeight*(-3)},500);
+                if($(".main").is(":visible")){
+                        $("li:odd").animate({top:boxHeight*2},200).animate({top:boxHeight*(-1)},500);
+                        $("li:even").animate({top:boxHeight*(-1)},200).animate({top:boxHeight*(-2)},500);
+                }
         },1000);
 
         $(window).keypress(function(a){
-                if($(".main").css("display")!=='none'){
-                if(a.which==120){
-                        a.preventDefault();
-                        $(".main").hide();
-                        $(".entrance").show();
-                        return 0;
-                }
-                if(a.which==32 && x == 0){
-                        x = 1;
-                        $("body").css("opacity",0.5);
-                        setPos();
-                        raj.hide();
-                        jQuery.fx.off=true;
-                }
-                else{
-                        x = 0;
-                        $("body").css("opacity",1);
-                        jQuery.fx.off=false;
-                        raj.show();}              
+                if($(".main").is(":visible")){
+                        if(a.which==120){
+                                a.preventDefault();
+                                $(".main").hide();
+                                $(".entrance").show();
+                                return 0;
+                        }
+                        if(a.which==32 && x == 0){
+                                x = 1;
+                                $("body").css("opacity",0.5);
+                                setPos();
+                                raj.hide();
+                                jQuery.fx.off=true;
+                        }
+                        else{
+                                x = 0;
+                                $("body").css("opacity",1);
+                                jQuery.fx.off=false;
+                                raj.show();
+                        }              
                 }
         });   
 
@@ -169,6 +176,7 @@ $(document).ready(function(){
                         $(".main").hide();
                         $(".game").show();
                         $(".gameText").html("GAME OVER...!!");
+                        raj.css({"left":"3%" ,"top":"48%"});
                 }
         });
 });
