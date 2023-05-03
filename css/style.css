@@ -187,6 +187,12 @@ button:hover{
 	.result button{
 		width: 100%;
 	}
+	.main .bars .bar:last-child{
+		display: none;
+	}
+	.main .bars .bar{
+		margin: 0 14%;
+	}
 }
 @media (orientation: landscape) and (max-height: 480px) {
 	.main .gameBox{
