@@ -17,19 +17,16 @@ $(document).ready(function(){
                 if($(".main").is(":visible")){
                         var touchLeft = parseInt(event.pageX);
                         var touchTop = parseInt(event.pageY);
-                        if(event.type === "touchmove"){
-                                touchLeft = event.originalEvent.changedTouches[0].clientX;
-                                touchTop = event.originalEvent.changedTouches[0].clientY;
-                        }
                         const boxMove = function (a,b){
                                 raj.css({"left":touchLeft-a,"top":touchTop-b, "background":"rgb("+Math.round(Math.random()*255) +","+Math.round(Math.random()*255) +","+Math.round(Math.random()*255) +")"});
                         }
-                        if(boxWidth >= 70){
-                                boxMove(boxWidth/1.5,boxHeight/1.5);
+                        if(event.type === "touchmove"){
+                                touchLeft = event.originalEvent.changedTouches[0].clientX;
+                                touchTop = event.originalEvent.changedTouches[0].clientY;
+                                boxMove(boxWidth/5,boxHeight/5);
                         }
-                        else {
-                                boxMove(boxWidth/3,boxHeight/3);
-                        }
+                        
+                        boxMove(boxWidth/3,boxHeight/3);
                                               
                         if(boxRelativeWidth >= $(".main").width()){
                                 $(".main").hide();
