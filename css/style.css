@@ -8,11 +8,6 @@ src: url('Comica BD.ttf');
 font-family: 'Dafunk_FREE';
 src: url('Dafunk_FREE.otf');
 }
-@font-face
-{
-font-family: 'DesignerPixels';
-src: url('DesignerPixels.ttf');             
-}
 *{margin:0;padding:0;}
 html, body{
 	height: 100%;
@@ -24,7 +19,7 @@ body{
 	background:-moz-radial-gradient(#999,#ccc);
 	background:-o-radial-gradient(tan,#7dc);
 	background:-ms-radial-gradient(tan,#7dc);
-	font-family: 'DesignerPixels';
+	font-family: 'Dafunk_FREE';
 	width:100%;
 	cursor:url('bug.gif'),auto;
 }
@@ -35,7 +30,6 @@ body{
 	display: flex;
 }
 .entrance{
-	font-family: 'Dafunk_FREE';
 	width: 50%;
     margin: 0 auto;
     display: flex;
@@ -97,7 +91,6 @@ button:hover{
 }
 .result .resultText{
 	color:red;
-	font-family: 'DesignerPixels';
 }
 .main .gameBox{
 	position: absolute;
@@ -171,7 +164,7 @@ button:hover{
 		width: 90%;
 	}
 	.main .gameBox{
-		box-shadow: -10px -10px 10px;
+		outline: 10px dotted;
 	}
 	.helpPage{
 		width: 90%;
@@ -196,7 +189,7 @@ button:hover{
 }
 @media (orientation: landscape) and (max-height: 480px) {
 	.main .gameBox{
-		box-shadow: -10px -10px 10px;
+		outline: 10px dotted;
 	}
 	h1 {
 		margin-top: 2%;
