@@ -21,9 +21,7 @@ $(function(){
             // Buttons
             allButtons : $('button'),
             playBtn : $('.play-btn'),
-            mainMenuBtn : $('.main-menu-btn'),
             fullscreenBtn : $('.full-screen-btn'),
-            backBtn : $('.back-btn'),
 
             // game elements
             gameArena : $('.game-arena'),
@@ -37,6 +35,9 @@ $(function(){
             gameCover : $('.game-cover'),
 
             //Dynamically added UI Elements should be handled as functions
+            visibleEnemy : function() {
+                return $('[data-enemy="true"]:visible');
+            },
         };
 
         // Return the DOMElements object to be used by controller function
@@ -246,16 +247,10 @@ $(function(){
             
                 setInterval(function(){
                         if(!gameObj.over){
-                                DOM.enemy.each(function(){
-                                        let boxLeft = DOM.gameBox.offset().left;
-                                        let boxTop = DOM.gameBox.offset().top;
-                                        let boxRelativeWidth = boxLeft + DOM.gameBox.innerWidth();
-                                        let boxRelativeHeight = boxTop + DOM.gameBox.innerHeight(); 
-                                        let lineLeft = $(this).offset().left;
-                                        let lineTop = $(this).offset().top;
-                                        let lineWidth = lineLeft+$(this).innerWidth();
-                                        let lineHeight = lineTop+$(this).innerHeight();
-                                        if(boxRelativeWidth > lineLeft && boxLeft < lineWidth && boxRelativeHeight > lineTop && boxTop < lineHeight){
+                                DOM.visibleEnemy().each(function(){
+                                        let gameBoxPosition = DOM.gameBox[0].getBoundingClientRect();
+                                        let enemyPostion = $(this)[0].getBoundingClientRect();
+                                        if(gameBoxPosition.right >= enemyPostion.left && gameBoxPosition.left <=  enemyPostion.right && gameBoxPosition.top <= enemyPostion.bottom && gameBoxPosition.bottom >= enemyPostion.top ){
                                                 gameObj.lifeLost = true;
                                                 DOM.gameBox.unbind("touchmove");
                                                 gameCtrl.addCSS(DOM.gameBox, `{"left":"3%" ,"top":"48%"}`);
