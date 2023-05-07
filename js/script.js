@@ -120,7 +120,7 @@ $(function(){
             constructor() {
 
                 this.mouseMoveOff = function(){
-                        DOM.gameBox.off("mousemove touchmove touchstart");
+                        DOM.gameBox.off("mousemove touchmove");
                 };
 
                 this.resetGame = function(won, play) {
@@ -154,7 +154,6 @@ $(function(){
                 }
 
                 this.boxMovement = function(event){   
-                        event.stopPropagation();      
                         if(!gameObj.over){
                                 let touchLeft = parseInt(event.pageX);
                                 let touchTop = parseInt(event.pageY);
@@ -175,6 +174,7 @@ $(function(){
                                         gameObj.start.levelUp = true;
                                         gameCtrl.addCSS(DOM.gameBox, `{"left":"3%" ,"top":"48%"}`);
                                         !gameObj.over && gameObj.start.mouseMoveOff();
+                                        gameCtrl.animateElement(DOM.gameCover, `{"width": "100%"}`).animateElement(DOM.gameCover, `{"width": "0"}`);
                                 }
                         }
                 }
@@ -211,7 +211,7 @@ $(function(){
 
                 // Hide current page and show specific page for all buttons
                 DOM.allButtons.on('click', function(event) {
-                event.preventDefault();
+                //event.preventDefault();
 
                 if(this.dataset.parent && this.dataset.show) {
                         gameCtrl.addRemoveCls(gameCtrl.returnParentSibling($(this), this.dataset.parent, this.dataset.show), false, 'd-none')
@@ -227,22 +227,17 @@ $(function(){
 
                 DOM.documentEle.bind("contextmenu",function(event){return false;});
 
-                DOM.documentEle.on("mouseleave touchend",function(){
-                        !gameObj.over && gameObj.start.mouseMoveOff();
-                }); 
-
                 DOM.gameBox.on("mouseenter touchstart",function(event){
-                        DOM.gameBox.on("mousemove touchmove", function(event){gameObj.start.boxMovement(event)});
+                        DOM.gameBox.on("mousemove touchmove", function(event){!gameObj.over && gameObj.start.boxMovement(event)});
                 });
                 DOM.gameBox.on("mousemove touchmove", function(event){
                         !gameObj.over && gameObj.start.boxMovement(event);
                 });
 
-                DOM.gameBox.on("mouseleave touchend touchcancel",function(event){
-                        DOM.gameBox.unbind("touchmove");
+                DOM.gameBox.on("mouseleave touchend",function(event){
                         gameObj.start.lifeCount();
                         gameObj.lifeLost = false;
-                        gameObj.lives && gameObj.start.levelUp && ++gameObj.level && gameCtrl.animateElement(DOM.gameCover, `{"width": "100%"}`).animateElement(DOM.gameCover, `{"width": "0"}`);
+                        gameObj.lives && gameObj.start.levelUp && ++gameObj.level;
                         gameObj.start.levelUp = false;
                         gameCtrl.attrChange(DOM.gameArena, 'data-level', gameObj.level)
                                 .addContent(DOM.levelSpan, gameObj.level);
