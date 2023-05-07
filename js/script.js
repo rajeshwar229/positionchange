@@ -120,7 +120,7 @@ $(function(){
             constructor() {
 
                 this.mouseMoveOff = function(){
-                        DOM.documentEle.off("mousemove touchmove");
+                        DOM.gameBox.off("mousemove touchmove touchstart");
                 };
 
                 this.resetGame = function(won, play) {
