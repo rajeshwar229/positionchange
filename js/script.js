@@ -237,11 +237,11 @@ $(function(){
                 DOM.gameBox.on("mouseleave touchend",function(event){
                         gameObj.start.lifeCount();
                         gameObj.lifeLost = false;
-                        gameObj.lives && gameObj.start.levelUp && ++gameObj.level;
+                        gameObj.lives && gameObj.start.levelUp && gameObj.level <= 5 && ++gameObj.level;
                         gameObj.start.levelUp = false;
                         gameCtrl.attrChange(DOM.gameArena, 'data-level', gameObj.level)
                                 .addContent(DOM.levelSpan, gameObj.level);
-                        !gameObj.lives && gameObj.start.resetGame(false);
+                        !gameObj.lives ? gameObj.start.resetGame(false) : gameObj.level > 5 && gameObj.start.resetGame(true);
                 });
             
                 setInterval(function(){
