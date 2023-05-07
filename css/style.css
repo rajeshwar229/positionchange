@@ -23,8 +23,10 @@ body{
 	width:100%;
 	cursor:url('bug.gif'),auto;
 }
-
-.main{
+.d-none{
+	display:none !important;
+}
+.game-arena{
 	cursor:url(sword.png),auto;
 	height: 100%;
 	display: flex;
@@ -62,7 +64,7 @@ button{
 .moreGames button {
 	cursor: url(moreGames.png), pointer;
 }
-button:hover{
+.entrance button:hover, .help-page button:hover{
 	background:#89a;
 	background:-webkit-linear-gradient(grey,silver);
 	background:-moz-linear-gradient(#ffe,#cc2);
@@ -70,10 +72,9 @@ button:hover{
 	box-shadow:0px 0px 25px white;
 	text-shadow:0px 0px 10px blue;
 }
-.play {cursor: url(play.png), pointer;}
-.help{ cursor:url(help.png), pointer;}
-.fullScreen {cursor: url(fullscreen.png), pointer;}
-.exit{cursor:url(exit.gif), pointer;}
+.play-btn {cursor: url(play.png), pointer;}
+.help-btn{ cursor:url(help.png), pointer;}
+.full-screen-btn {cursor: url(fullscreen.png), pointer;}
 .result{
 	background:-webkit-radial-gradient(#ccc,#666);
 	background:-moz-radial-gradient(#666,#ccc);
@@ -89,10 +90,7 @@ button:hover{
 	-moz-box-sizing:border-box;
 	-webkit-box-sizing:border-box;
 }
-.result .resultText{
-	color:red;
-}
-.main .gameBox{
+.game-arena .gameBox{
 	position: absolute;
 	z-index: 1;
 	width:50px;
@@ -102,20 +100,92 @@ button:hover{
 	background:black;
 	cursor:url(3.png),pointer;
 }
-.main .bars .bar{
+.game-arena .bars .bar{
 	width: 1%;
     background: #222;
     height: 100%;
     position: relative;
     margin: 0 11%;
 }
-.main .bars{
+.game-arena[data-level="1"] .bars .bar,
+.game-arena[data-level="2"] .bars .bar {
+	margin: 0 20%;
+}
+.game-arena[data-level="1"] .bars .bar:nth-child(odd),
+.game-arena[data-level="2"] .bars .bar:nth-child(odd) {
+	display: none;
+}
+.game-arena[data-level="1"] .bars .bar:nth-child(2),
+.game-arena[data-level="2"] .bars .bar:nth-child(2) {
+	top: -100px;
+}
+.game-arena[data-level="1"] .bars .bar:nth-child(4),
+.game-arena[data-level="2"] .bars .bar:nth-child(4) {
+	top: 100px;
+}
+.game-arena[data-level="3"] .bars .bar {
+	margin: 0 11%;
+}
+.game-arena[data-level="3"] .bars .bar:nth-child(odd) {
+	display: block;
+}
+
+.game-arena[data-level="2"] .bars .bar:nth-child(2),
+.game-arena[data-level="3"] .bars .bar:nth-child(odd){
+	animation-name: odd-bars;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+}
+
+.game-arena[data-level="2"] .bars .bar:nth-child(4),
+.game-arena[data-level="3"] .bars .bar:nth-child(even){
+	animation-name: even-bars;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+}
+
+@keyframes even-bars {
+	0% {
+		top: 100px;
+	}
+	50%{
+		top: 0px;
+	}
+	100%{
+		top: 100px;
+	}
+}
+
+@keyframes odd-bars {
+	0% {
+		top: -100px;
+	}
+	50%{
+		top: 0px;
+	}
+	100%{
+		top: -100px;
+	}
+}
+
+.game-arena .bars{
 	display: flex;
     margin-left: 15%;
     width: 100%;
     height: 100%;
 }
-.helpPage{		
+
+.game-arena .game-cover{
+	background: #000;
+    width: 0;
+    height: 100%;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 2;
+}
+
+.help-page{		
 	font-size: 1.8rem;
 	font-weight: bold;
 	margin:0 auto;
@@ -125,17 +195,20 @@ button:hover{
 	text-shadow: 0px 0px 10px #678;
 	font-family: 'Comica BD';
 }
-.helpPage button{
+.help-page button{
 	display:inline;
 	margin:2% 6%;
 	width:30%;
 }
-.lives{
+.lives, .level{
 	position: absolute;
 	left:2%;				
 	font-size: 1.5rem;
 	color:maroon;
 	top:3%;
+}
+.level {
+	top: 10%;
 }
 .result button{
 	color:blue;
@@ -144,12 +217,6 @@ button:hover{
 	width: 25%;
 	display: block;
 	cursor:url(laserPen.gif),pointer;
-}
-.retry {
-	cursor: url(play.png), pointer;
-}
-.retry:hover,.menu:hover{
-	background:silver;
 }
 .disable-dbl-tap-zoom {
     touch-action: manipulation;
@@ -163,15 +230,15 @@ button:hover{
 	button {
 		width: 90%;
 	}
-	.main .gameBox{
+	.game-arena .gameBox{
 		outline: 10px dotted;
 	}
-	.helpPage{
+	.help-page{
 		width: 90%;
 		height: 100%;
 		font-size: 1.6rem;
 	}
-	.helpPage button {
+	.help-page button {
 		display: flex;
 		margin: 5% auto;
 		width: 100%;
@@ -180,21 +247,21 @@ button:hover{
 	.result button{
 		width: 100%;
 	}
-	.main .bars .bar:last-child{
+	.game-arena[data-level="3"] .bars .bar:last-child{
 		display: none;
 	}
-	.main .bars .bar{
+	.game-arena[data-level="3"] .bars .bar{
 		margin: 0 14%;
 	}
 }
 @media (orientation: landscape) and (max-height: 480px) {
-	.main .gameBox{
+	.game-arena .gameBox{
 		outline: 10px dotted;
 	}
 	h1 {
 		margin-top: 2%;
 	}
-	.helpPage{		
+	.help-page{		
 		width: 85%;
 		font-size: 1.5rem;
 	}
