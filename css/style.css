@@ -98,32 +98,33 @@ button{
 	top:48%;
 	left:3%;
 	background:black;
-	cursor:url(3.png),pointer;
+	cursor:url(gameBox.png),pointer;
+	box-shadow: -10px -10px 25px black; 
 }
 .game-arena .bars .bar{
 	width: 1%;
     background: #222;
     height: 100%;
     position: relative;
-    margin: 0 11%;
-}
-.game-arena[data-level="1"] .bars .bar,
-.game-arena[data-level="2"] .bars .bar {
-	margin: 0 20%;
+    margin: 0 20%;
 }
 .game-arena[data-level="1"] .bars .bar:nth-child(odd),
-.game-arena[data-level="2"] .bars .bar:nth-child(odd) {
+.game-arena[data-level="2"] .bars .bar:nth-child(odd),
+.game-arena[data-level="4"] .bars .bar:nth-child(odd) {
 	display: none;
 }
 .game-arena[data-level="1"] .bars .bar:nth-child(2),
-.game-arena[data-level="2"] .bars .bar:nth-child(2) {
+.game-arena[data-level="2"] .bars .bar:nth-child(2),
+.game-arena[data-level="5"] .bars .bar:nth-child(odd) {
 	top: -100px;
 }
 .game-arena[data-level="1"] .bars .bar:nth-child(4),
-.game-arena[data-level="2"] .bars .bar:nth-child(4) {
+.game-arena[data-level="2"] .bars .bar:nth-child(4),
+.game-arena[data-level="5"] .bars .bar:nth-child(even) {
 	top: 100px;
 }
-.game-arena[data-level="3"] .bars .bar {
+.game-arena[data-level="3"] .bars .bar,
+.game-arena[data-level="5"] .bars .bar {
 	margin: 0 11%;
 }
 .game-arena[data-level="3"] .bars .bar:nth-child(odd) {
@@ -132,40 +133,56 @@ button{
 
 .game-arena[data-level="2"] .bars .bar:nth-child(2),
 .game-arena[data-level="3"] .bars .bar:nth-child(odd){
-	animation-name: odd-bars;
-	animation-duration: 1s;
-	animation-iteration-count: infinite;
+	animation: odd-bars 1s infinite;
 }
 
 .game-arena[data-level="2"] .bars .bar:nth-child(4),
 .game-arena[data-level="3"] .bars .bar:nth-child(even){
-	animation-name: even-bars;
-	animation-duration: 1s;
-	animation-iteration-count: infinite;
+	animation: even-bars 1s infinite;
+}
+
+.game-arena[data-level="4"] .bars .bar{
+	height: 90%;
+	animation: bars-animate-4 2s infinite alternate-reverse ease-in-out;
+} 
+
+.game-arena[data-level="5"] .bars .bar:nth-child(odd){
+	animation: odd-bars-animate-5 3s infinite;
+}
+.game-arena[data-level="5"] .bars .bar:nth-child(even){
+	animation: even-bars-animate-5 3s infinite;
+}
+
+@keyframes odd-bars-animate-5 {
+	0%{ left: 0; }
+	50%{ left: 10%; }
+	100%{ left: 0; }
+}
+
+@keyframes even-bars-animate-5 {
+	0%{ left: 0; }
+	50%{ left: -10%; }
+	100%{ left: 0; }
+}
+
+@keyframes bars-animate-4 {
+	0%{ left: 0; top: 0 }
+	25% { left: 10%; }
+	50%{ top: 10%; left: 25%; }
+	75%{ left : 10%; }
+	100%{ top : 0; left: 0; }
 }
 
 @keyframes even-bars {
-	0% {
-		top: 100px;
-	}
-	50%{
-		top: 0px;
-	}
-	100%{
-		top: 100px;
-	}
+	0% { top: 100px; }
+	50%{ top: 0px; }
+	100%{ top: 100px; }
 }
 
 @keyframes odd-bars {
-	0% {
-		top: -100px;
-	}
-	50%{
-		top: 0px;
-	}
-	100%{
-		top: -100px;
-	}
+	0% { top: -100px; }
+	50%{ top: 0px; }
+	100%{ top: -100px; }
 }
 
 .game-arena .bars{
@@ -253,6 +270,19 @@ button{
 	}
 	.game-arena[data-level="3"] .bars .bar{
 		margin: 0 14%;
+	}
+	.game-arena[data-level="5"] .bars .bar{
+		margin: 0 20%;
+	}
+	.game-arena[data-level="5"] .bars .bar:nth-child(odd){
+		display: none;
+	}
+	.game-arena[data-level="5"] .bars .bar:nth-child(2){
+		animation: odd-bars-animate-5 2s infinite;
+		top: -100px;
+	}
+	.game-arena[data-level="5"] .bars .bar:nth-child(4){
+		animation: even-bars-animate-5 2s infinite;
 	}
 }
 @media (orientation: landscape) and (max-height: 480px) {
