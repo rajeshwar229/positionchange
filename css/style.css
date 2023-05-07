@@ -110,21 +110,21 @@ button{
 }
 .game-arena[data-level="1"] .bars .bar:nth-child(odd),
 .game-arena[data-level="2"] .bars .bar:nth-child(odd),
-.game-arena[data-level="4"] .bars .bar:nth-child(odd) {
+.game-arena[data-level="5"] .bars .bar:nth-child(odd) {
 	display: none;
 }
 .game-arena[data-level="1"] .bars .bar:nth-child(2),
 .game-arena[data-level="2"] .bars .bar:nth-child(2),
-.game-arena[data-level="5"] .bars .bar:nth-child(odd) {
+.game-arena[data-level="4"] .bars .bar:nth-child(odd) {
 	top: -100px;
 }
 .game-arena[data-level="1"] .bars .bar:nth-child(4),
 .game-arena[data-level="2"] .bars .bar:nth-child(4),
-.game-arena[data-level="5"] .bars .bar:nth-child(even) {
+.game-arena[data-level="4"] .bars .bar:nth-child(even) {
 	top: 100px;
 }
 .game-arena[data-level="3"] .bars .bar,
-.game-arena[data-level="5"] .bars .bar {
+.game-arena[data-level="4"] .bars .bar {
 	margin: 0 11%;
 }
 .game-arena[data-level="3"] .bars .bar:nth-child(odd) {
@@ -141,17 +141,17 @@ button{
 	animation: even-bars 1s infinite;
 }
 
-.game-arena[data-level="4"] .bars .bar{
+.game-arena[data-level="4"] .bars .bar:nth-child(odd){
+	animation: odd-bars-animate-5 3s infinite;
+}
+.game-arena[data-level="4"] .bars .bar:nth-child(even){
+	animation: even-bars-animate-5 3s infinite;
+}
+
+.game-arena[data-level="5"] .bars .bar{
 	height: 90%;
 	animation: bars-animate-4 2s infinite alternate-reverse ease-in-out;
 } 
-
-.game-arena[data-level="5"] .bars .bar:nth-child(odd){
-	animation: odd-bars-animate-5 3s infinite;
-}
-.game-arena[data-level="5"] .bars .bar:nth-child(even){
-	animation: even-bars-animate-5 3s infinite;
-}
 
 @keyframes odd-bars-animate-5 {
 	0%{ left: 0; }
@@ -271,17 +271,17 @@ button{
 	.game-arena[data-level="3"] .bars .bar{
 		margin: 0 14%;
 	}
-	.game-arena[data-level="5"] .bars .bar{
+	.game-arena[data-level="4"] .bars .bar{
 		margin: 0 20%;
 	}
-	.game-arena[data-level="5"] .bars .bar:nth-child(odd){
+	.game-arena[data-level="4"] .bars .bar:nth-child(odd){
 		display: none;
 	}
-	.game-arena[data-level="5"] .bars .bar:nth-child(2){
+	.game-arena[data-level="4"] .bars .bar:nth-child(2){
 		animation: odd-bars-animate-5 2s infinite;
 		top: -100px;
 	}
-	.game-arena[data-level="5"] .bars .bar:nth-child(4){
+	.game-arena[data-level="4"] .bars .bar:nth-child(4){
 		animation: even-bars-animate-5 2s infinite;
 	}
 }
