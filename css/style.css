@@ -217,7 +217,7 @@ button{
 	margin:2% 6%;
 	width:30%;
 }
-.lives, .level{
+.lives, .level, .game-menu-btn{
 	position: absolute;
 	left:2%;				
 	font-size: 1.5rem;
@@ -227,6 +227,13 @@ button{
 .level {
 	top: 10%;
 	color: blue;
+}
+.game-menu-btn{
+	top: 15%;
+	top: 17%;
+    width: 10%;
+    margin: 0;
+    padding: 0;
 }
 .result button{
 	color:blue;
