@@ -12,40 +12,38 @@
 	<body>
 		<div class="entrance">
 			<h1>Position Change</h1>
-			<button class="play">Play</button>
-			<button class="help">Help</button>
-			<button class="fullScreen" data-fullscreen="off">Full Screen</button>
+			<button class="play-btn" data-parent="entrance" data-show="game-arena">Play</button>
+			<button class="help" data-parent="entrance" data-show="help-page">Help</button>
+			<button class="full-screen-btn" data-fullscreen="off">Full Screen</button>
 			<a class="moreGames" href="https://rajeshwar229.github.io/games/"><button>More Games</button></a>
-			<button class="exit">Exit</button>
 		</div>
-		<div class="helpPage container">
+		<div class="help-page d-none">
 			<p>Move your Mouse or Touch by entering the box.
 			Try to avoid touching the moving bars(rods).
 			You will have 3 lives. If you touch the bar, a life will be lost.
 			Try to move a bit slow and avoid going out of the game area(window).
 			Reach the right corner of the screen to finish.
-			Press SpaceBar to pause/play the game.
-			Press 'x' to escape to menu.
 			</p>
-			<button class="back">Back</button><button class="play">Play</button>
+			<button class="back-btn" data-parent="help-page" data-show="entrance">Back</button>
+			<button class="play-btn" data-parent="help-page" data-show="game-arena">Play</button>
 		</div>
-		<div class="main container" data-paused="off">
+		<div class="game-arena d-none" data-level="1">
+			<div class="game-cover"></div>
 			<div class="bars">
-				<div class="bar"></div>
-				<div class="bar"></div>
-				<div class="bar"></div>
-				<div class="bar"></div>
+				<div class="bar" data-enemy="true"></div>
+				<div class="bar" data-enemy="true"></div>
+				<div class="bar" data-enemy="true"></div>
+				<div class="bar" data-enemy="true"></div>
 			</div>
 			<div class="gameBox"></div>
-			<span class="lives"></span>
+			<span class="lives">Lives - <span>3</span></span>
+			<span class="level">Level - <span>1</span></span>
 		</div>
-		<div class="result container">
-			<h1 class="resultText"></h1>
-			<button class='retry'>Retry</button>
-			<button class='menu'>Menu</button>
+		<div class="result d-none">
+			<h1 class="result-text"></h1>
+			<button class="play-btn" data-parent="result" data-show="game-arena">Retry</button>
+			<button class="main-menu-btn" data-parent="result" data-show="entrance">Menu</button>
 		</div>
-	
-	
 	</body>
 	
 </html>
