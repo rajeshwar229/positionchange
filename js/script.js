@@ -1,61 +1,196 @@
-$(document).ready(function(){
+/********* START OF SCRIPT *********/
 
-        var raj=$(".gameBox"), life = 3, flag = 0, boxWidth = raj.width(), boxRelativeWidth = 0, boxRelativeHeight = 0, boxHeight = raj.height(), boxLeft = 0, boxTop = 0;
+$(function(){
 
-        const setPos = function(){$(document).off("mousemove");};
+        //This is only for storing static and dynamic UI Elements
+    const UIController = (() => {
+        
+        //Add static UI Elements here
+        const DOMElements = {
+            window : $(window),
+            documentEle : $(document),
+            document : document,
+            bodyEle : $('body'),
 
-        const lives = function(){
-                if(flag == 1){
-                        life--;
-                        flag=0;
-                        setPos();
-                }
-                $(".lives").text("lives x "+ life);
+            // Page blocks
+            entranceEle : $('.entrance'),
+            resultEle : $('.result'),
+            helpPageEle : $('.help-page'),
+            
+
+            // Buttons
+            allButtons : $('button'),
+            playBtn : $('.play-btn'),
+            mainMenuBtn : $('.main-menu-btn'),
+            fullscreenBtn : $('.full-screen-btn'),
+            backBtn : $('.back-btn'),
+
+            // game elements
+            gameArena : $('.game-arena'),
+            gameBox : $('.gameBox'), 
+            livesSpan : $('.lives span'),
+            levelSpan : $('.level span'),
+            resultText : $('.result-text'),
+            enemy : $('[data-enemy="true"]'),
+            barsOdd : $('.bars .bar:odd'), 
+            barsEven : $('.bars .bar:even'),
+            gameCover : $('.game-cover'),
+
+            //Dynamically added UI Elements should be handled as functions
+        };
+
+        // Return the DOMElements object to be used by controller function
+        return {
+            getDOMElements : () => DOMElements
         }
+    })();
 
-        const move = function(event){         
-                if($(".main").is(":visible")){
-                        var touchLeft = parseInt(event.pageX);
-                        var touchTop = parseInt(event.pageY);
-                        const boxMove = function (a,b){
-                                raj.css({"left":touchLeft-a,"top":touchTop-b, "background":"rgb("+Math.round(Math.random()*255) +","+Math.round(Math.random()*255) +","+Math.round(Math.random()*255) +")"});
-                        }
-                        if(event.type === "touchmove"){
-                                touchLeft = event.originalEvent.changedTouches[0].clientX;
-                                touchTop = event.originalEvent.changedTouches[0].clientY;
-                                boxMove(boxWidth/5,boxHeight/5);
+    // This is only for UI manipulation
+    const gameController = (() => {
+        return {
+
+            // This will add html content to the element passed
+            addContent : function (ele, content) {
+                ele.html(content);
+                return this;
+            },
+
+            //Add or remove the class for ele element. If there is no class to add, pass "addcls" as false
+            addRemoveCls : function (ele, addcls, removecls){
+                addcls && $(ele).addClass(addcls);
+                removecls && $(ele).removeClass(removecls);
+                return this;
+            },
+
+            // Change attribute value for an element
+            attrChange : function (ele, atrname, atrval) {
+                $(ele).attr(atrname, atrval);
+                return this;
+            },
+
+            // Add passed css json object for the element
+            addCSS : function (ele, css) {
+                const cssObj = JSON.parse(css);
+                ele.css(cssObj);
+                return this;
+            },
+
+            // Returns parent/s sibling element for an element
+            returnParentSibling : function (ele, parent, sibling) {
+                if(parent && sibling) {
+                    return $(ele.parents(`.${parent}`).siblings(`.${sibling}`));
+                }
+            },
+
+            // Returns parent/s element for an element
+            returnParent : function (ele, data) {
+                if(data) {
+                    return $(ele.parents(`.${data}`));
+                }
+                return $(ele.parent());
+            },
+
+            //animates the element
+            animateElement : function(ele, animation){
+                const animationObj = JSON.parse(animation);
+                ele.animate(animationObj);
+                return this;
+            }
+        }
+    })();
+
+    // GLOBAL APP CONTROLLER
+    const controller = ((gameCtrl, UICtrl) => {
+
+        // Storing DOM elements
+        const DOM = UICtrl.getDOMElements();
+
+        // Setting initial values for gameObj, which will be created by gameObject class, once game is started
+        const gameObj = {
+            start : null,
+            over : true,
+            lives : 3,
+            lifeLost : false,
+            level : 1,
+            levelUp : false
+        };
+
+        // game object class
+        class gameObject {
+            constructor() {
+
+                this.mouseMoveOff = function(){
+                        DOM.documentEle.off("mousemove touchmove");
+                };
+
+                this.resetGame = function(won, play) {
+                        gameObj.lives = 3;
+                        play ? gameObj.over = false : gameObj.over = true;
+                        gameObj.level = 1;
+                        gameObj.lifeLost = false;
+                        
+                        gameCtrl.addCSS(DOM.gameBox, `{"left":"3%" ,"top":"48%"}`)
+                                        .addContent(DOM.livesSpan, gameObj.lives)
+                                        .addContent(DOM.levelSpan, gameObj.level)
+                                        .attrChange(DOM.gameArena, 'data-level', gameObj.level);
+                        
+                        if(!play){
+                                gameCtrl.addRemoveCls(DOM.gameArena,'d-none')
+                                        .addRemoveCls(DOM.resultEle,false,'d-none');
+                        
+                                won ? gameCtrl.addContent(DOM.resultText, 'Congratulations, You Won!') : gameCtrl.addContent(DOM.resultText, 'GAME OVER!');
+                                gameObj.start = null;
                         }
                         
-                        boxMove(boxWidth/3,boxHeight/3);
-                                              
-                        if(boxRelativeWidth >= $(".main").width()){
-                                $(".main").hide();
-                                $(".result").show();
-                                $(".resultText").html("Congrats..U Won.!!").css("color","blue");
-                                raj.css({"left":"3%" ,"top":"48%"});
+                }
+
+                this.lifeCount = function() {
+                        if(gameObj.lifeLost === true){
+                                gameObj.lives--;
+                                gameObj.lifeLost = false;
+                                this.mouseMoveOff();
+                        }
+                        gameCtrl.addContent(DOM.livesSpan, gameObj.lives);
+                }
+
+                this.boxMovement = function(event){   
+                        event.stopPropagation();      
+                        if(!gameObj.over){
+                                let touchLeft = parseInt(event.pageX);
+                                let touchTop = parseInt(event.pageY);
+                                let boxLeft = DOM.gameBox.offset().left;
+                                let boxRelativeWidth = boxLeft + DOM.gameBox.innerWidth();
+                                const boxMove = function (a,b){
+                                        DOM.gameBox.css({"left":touchLeft-a,"top":touchTop-b, "background":"rgb("+Math.round(Math.random()*255) +","+Math.round(Math.random()*255) +","+Math.round(Math.random()*255) +")"});
+                                }
+                                if(event.type === "touchmove"){
+                                        touchLeft = event.originalEvent.changedTouches[0].clientX;
+                                        touchTop = event.originalEvent.changedTouches[0].clientY;
+                                        boxMove(10,10);
+                                }
+                                
+                                boxMove(20,20);
+                                                
+                                if(boxRelativeWidth >= DOM.gameArena.width()){
+                                        gameObj.start.levelUp = true;
+                                        gameCtrl.addCSS(DOM.gameBox, `{"left":"3%" ,"top":"48%"}`);
+                                        !gameObj.over && gameObj.start.mouseMoveOff();
+                                }
                         }
                 }
-                
+            }
         }
 
-        $(".container").hide();
-        $(".play").click(function(){
-                $(".main").fadeIn(300);
-                $(".entrance").slideUp(200);
-                $(".helpPage").slideUp(200);
-                life = 3;
-                $(".lives").text("lives x "+ life);
-        });
-        
-        $(".help").click(function(){
-                $(".helpPage").fadeIn(300);$(".entrance").hide(200);
-        });
-        
-        $(".fullScreen").on('click',function(){
+        // This functions is for all User interactions events
+        const setupEvents = () => {
+
+                // This will reset all the values to beginning values
+                
+                DOM.fullscreenBtn.on('click',function(){
                 let de = document.documentElement;
                 if(this.dataset.fullscreen === 'off'){
                         if(de.requestFullscreen){
-                        de.requestFullscreen();
+                                de.requestFullscreen();
                         }
                         else if(de.mozRequestFullscreen){de.mozRequestFullscreen();}
                         else if(de.webkitRequestFullscreen){de.webkitRequestFullscreen();}
@@ -72,111 +207,82 @@ $(document).ready(function(){
                         $(this).attr("data-fullscreen","off")
                         $(this).text("Full Screen");
                 }
-        });
+                });
 
-        $(".back").click(function(){
-                $(".entrance").show(300);$(".helpPage").fadeOut(200);
-        });
+                // Hide current page and show specific page for all buttons
+                DOM.allButtons.on('click', function(event) {
+                event.preventDefault();
 
-        $(".exit").click(function(){
-                let confirm = confirm("Do you want to exit??");
-                if(confirm){
-                        window.open('','_self');
-                        window.close();
+                if(this.dataset.parent && this.dataset.show) {
+                        gameCtrl.addRemoveCls(gameCtrl.returnParentSibling($(this), this.dataset.parent, this.dataset.show), false, 'd-none')
+                                .addRemoveCls(gameCtrl.returnParent($(this), this.dataset.parent), 'd-none');
                 }
-                else{
-                        alert("why did u press exit then??ha?");
-                }
-        });
-        $(".retry").click(function(){
-                life = 3;
-                $(".result").slideToggle(200);
-                $(".main").slideToggle(300);
-                $(".lives").text("lives x "+ life);
-                raj.css({"left":"3%" ,"top":"48%"});
-        });
+                });
 
-        $(".menu").click(function(){
-                $(".entrance").toggle(300);
-                $(".result").fadeToggle(200);
-        });		
-        
-        $(window).on('resize', function(){
-                
-        });
+                DOM.playBtn.on('click', function(){
+                        gameObj.start = gameObj.start || new gameObject();
+                        gameObj.start.resetGame(null, true);
+                        gameObj.over = false;
+                });
 
-        setInterval(function(){
-                if($(".main").is(":visible")){
-                        $(".bars .bar:odd").animate({top:"100px"},200).animate({top:0},500);
-                        $(".bars .bar:even").animate({top:"-100px"},200).animate({top:0},500);
-                        
-                }
-        },1000);
+                DOM.documentEle.bind("contextmenu",function(event){return false;});
 
-        $(window).keypress(function(a){
-                if($(".main").is(":visible")){
-                        if(a.which === 120){
-                                a.preventDefault();
-                                $(".main").hide();
-                                $(".entrance").show();
-                                return 0;
+                DOM.documentEle.on("mouseleave touchend",function(){
+                        !gameObj.over && gameObj.start.mouseMoveOff();
+                }); 
+
+                DOM.gameBox.on("mouseenter touchstart",function(event){
+                        DOM.gameBox.on("mousemove touchmove", function(event){gameObj.start.boxMovement(event)});
+                });
+                DOM.gameBox.on("mousemove touchmove", function(event){
+                        !gameObj.over && gameObj.start.boxMovement(event);
+                });
+
+                DOM.gameBox.on("mouseleave touchend touchcancel",function(event){
+                        DOM.gameBox.unbind("touchmove");
+                        gameObj.start.lifeCount();
+                        gameObj.lifeLost = false;
+                        gameObj.lives && gameObj.start.levelUp && ++gameObj.level && gameCtrl.animateElement(DOM.gameCover, `{"width": "100%"}`).animateElement(DOM.gameCover, `{"width": "0"}`);
+                        gameObj.start.levelUp = false;
+                        gameCtrl.attrChange(DOM.gameArena, 'data-level', gameObj.level)
+                                .addContent(DOM.levelSpan, gameObj.level);
+                        !gameObj.lives && gameObj.start.resetGame(false);
+                });
+            
+                setInterval(function(){
+                        if(!gameObj.over){
+                                DOM.enemy.each(function(){
+                                        let boxLeft = DOM.gameBox.offset().left;
+                                        let boxTop = DOM.gameBox.offset().top;
+                                        let boxRelativeWidth = boxLeft + DOM.gameBox.innerWidth();
+                                        let boxRelativeHeight = boxTop + DOM.gameBox.innerHeight(); 
+                                        let lineLeft = $(this).offset().left;
+                                        let lineTop = $(this).offset().top;
+                                        let lineWidth = lineLeft+$(this).innerWidth();
+                                        let lineHeight = lineTop+$(this).innerHeight();
+                                        if(boxRelativeWidth > lineLeft && boxLeft < lineWidth && boxRelativeHeight > lineTop && boxTop < lineHeight){
+                                                gameObj.lifeLost = true;
+                                                DOM.gameBox.unbind("touchmove");
+                                                gameCtrl.addCSS(DOM.gameBox, `{"left":"3%" ,"top":"48%"}`);
+                                        }
+                                });
                         }
-                        if(a.which === 32 && $(".main").data("paused") === "off"){
-                                $(".main").data("paused","on");
-                                $("body").css("opacity",0.5);
-                                setPos();
-                                raj.hide();
-                                jQuery.fx.off=true;
-                        }
-                        else{
-                                $(".main").data("paused","off");
-                                $("body").css("opacity",1);
-                                jQuery.fx.off=false;
-                                raj.show();
-                        }              
-                }
-        });   
+                },10);
+            
+        };
 
-        $(document).bind("contextmenu",function(q){return false;});
+        // returning only init function
+        return {
+            init: () => {
+                console.info('Welcome to %cPOSITION CHANGE GAME', "color: yellow; font-weight: bold; background-color: blue;padding: 2px");
+                setupEvents();
+            }
+        }
+    })(gameController, UIController);
 
-        $(document).on("mouseleave touchend",function(){setPos();});
+    // init function triggers setupEvents, which has events functions.
+    controller.init();
 
-        raj.on("mouseenter touchstart",function(event){
-                raj.on("mousemove touchmove",move);
-        });
-        raj.on("mousemove touchmove", move);
-                
-        
-        setInterval(function(){
-                if($(".main").is(":visible")){
-                        $(".bars .bar").each(function(){
-                                boxLeft = raj.offset().left;
-                                boxTop = raj.offset().top;
-                                boxRelativeWidth = boxLeft + raj.innerWidth();
-                                boxRelativeHeight = boxTop + raj.innerHeight(); 
-                                let lineLeft = $(this).offset().left;
-                                let lineTop = $(this).offset().top;
-                                let lineWidth = lineLeft+$(this).innerWidth();
-                                let lineHeight = lineTop+$(this).innerHeight();
-                                if(boxRelativeWidth > lineLeft && boxLeft < lineWidth && boxRelativeHeight > lineTop && boxTop < lineHeight){
-                                        flag = 1;
-                                        raj.unbind("touchmove");
-                                        raj.css({"left":"3%" ,"top":"48%"});
-                                }
-                        });
-                }
-        },10);
-
-        raj.on("mouseleave touchend",function(event){
-                raj.unbind("touchmove");
-                lives();
-                flag = 0;
-                if(life == 0){
-                        life = 3;
-                        $(".main").hide();
-                        $(".result").show();
-                        $(".resultText").html("GAME OVER...!!");
-                        raj.css({"left":"3%" ,"top":"48%"});
-                }
-        });
 });
+
+/********* END OF SCRIPT *********/
