@@ -90,7 +90,7 @@ button{
 	-moz-box-sizing:border-box;
 	-webkit-box-sizing:border-box;
 }
-.game-arena .gameBox{
+.game-arena .game-box{
 	position: absolute;
 	z-index: 1;
 	width:50px;
@@ -108,6 +108,18 @@ button{
     position: relative;
     margin: 0 20%;
 }
+
+.bar.top-bar,
+.bar.bottom-bar{
+	width: 100%;
+    height: 1%;
+    background: #222;
+    position: absolute;
+}
+.bar.bottom-bar{
+	bottom: 0;
+}
+
 .game-arena[data-level="1"] .bars .bar:nth-child(odd),
 .game-arena[data-level="2"] .bars .bar:nth-child(odd),
 .game-arena[data-level="5"] .bars .bar:nth-child(odd) {
@@ -142,47 +154,52 @@ button{
 }
 
 .game-arena[data-level="4"] .bars .bar:nth-child(odd){
-	animation: odd-bars-animate-5 3s infinite;
+	animation: odd-bars-animate-4 3s infinite;
 }
 .game-arena[data-level="4"] .bars .bar:nth-child(even){
-	animation: even-bars-animate-5 3s infinite;
+	animation: even-bars-animate-4 3s infinite;
 }
 
-.game-arena[data-level="5"] .bars .bar{
+.game-arena[data-level="5"] .bars .bar:nth-child(2){
 	height: 90%;
-	animation: bars-animate-4 2s infinite alternate-reverse ease-in-out;
+	animation: bars-animate-5 3s infinite alternate-reverse ease-in-out;
 } 
+.game-arena[data-level="5"] .bars .bar:nth-child(4){
+	height: 90%;
+	animation: bars-animate-5 3s infinite alternate ease-in-out;
+	animation-delay: 1s;
+}
 
-@keyframes odd-bars-animate-5 {
+@keyframes odd-bars-animate-4 {
 	0%{ left: 0; }
 	50%{ left: 10%; }
 	100%{ left: 0; }
 }
 
-@keyframes even-bars-animate-5 {
+@keyframes even-bars-animate-4 {
 	0%{ left: 0; }
 	50%{ left: -10%; }
 	100%{ left: 0; }
 }
 
-@keyframes bars-animate-4 {
-	0%{ left: 0; top: 0 }
+@keyframes bars-animate-5 {
+	0%{ left: 0; top: -5%; }
 	25% { left: 10%; }
-	50%{ top: 10%; left: 25%; }
+	50%{ top: 15%; left: 25%; }
 	75%{ left : 10%; }
-	100%{ top : 0; left: 0; }
+	100%{ top : -5%; left: 0; }
 }
 
 @keyframes even-bars {
-	0% { top: 100px; }
+	0% { top: 120px; }
 	50%{ top: 0px; }
-	100%{ top: 100px; }
+	100%{ top: 120px; }
 }
 
 @keyframes odd-bars {
-	0% { top: -100px; }
+	0% { top: -120px; }
 	50%{ top: 0px; }
-	100%{ top: -100px; }
+	100%{ top: -120px; }
 }
 
 .game-arena .bars{
@@ -220,17 +237,16 @@ button{
 .lives, .level, .game-menu-btn{
 	position: absolute;
 	left:2%;				
-	font-size: 1.5rem;
+	font-size: 1rem;
 	color:maroon;
-	top:3%;
+	top:2%;
 }
 .level {
-	top: 10%;
+	top: 6%;
 	color: blue;
 }
 .game-menu-btn{
-	top: 15%;
-	top: 17%;
+	top: 10%;
     width: 10%;
     margin: 0;
     padding: 0;
@@ -255,7 +271,7 @@ button{
 	button {
 		width: 90%;
 	}
-	.game-arena .gameBox{
+	.game-arena .game-box{
 		outline: 10px dotted;
 	}
 	.help-page{
@@ -285,15 +301,19 @@ button{
 		display: none;
 	}
 	.game-arena[data-level="4"] .bars .bar:nth-child(2){
-		animation: odd-bars-animate-5 2s infinite;
+		animation: odd-bars-animate-4 2s infinite;
 		top: -100px;
 	}
 	.game-arena[data-level="4"] .bars .bar:nth-child(4){
-		animation: even-bars-animate-5 2s infinite;
+		animation: even-bars-animate-4 2s infinite;
+	}
+	.game-menu-btn {
+		width: 25%;
+		padding: 1%;
 	}
 }
 @media (orientation: landscape) and (max-height: 480px) {
-	.game-arena .gameBox{
+	.game-arena .game-box{
 		outline: 10px dotted;
 	}
 	h1 {
@@ -313,5 +333,13 @@ button{
 	}
 	button:hover {
 		font-size: 1.3rem;
+	}
+	.level {
+		top: 8%;
+	}
+	.game-menu-btn {
+		top: 15%;
+		width: 15%;
+		padding: 0%;
 	}
 }
