@@ -295,18 +295,26 @@ button{
 		margin: 0 14%;
 	}
 	.game-arena[data-level="4"] .bars .bar{
-		margin: 0 20%;
+		margin: 0 15%;
 	}
-	.game-arena[data-level="4"] .bars .bar:nth-child(odd){
+	.game-arena[data-level="4"] .bars .bar:nth-child(4){
 		display: none;
 	}
-	.game-arena[data-level="4"] .bars .bar:nth-child(2){
+	.game-arena[data-level="4"] .bars .bar:nth-child(odd){
 		animation: odd-bars-animate-4 2s infinite;
 		top: -100px;
 	}
-	.game-arena[data-level="4"] .bars .bar:nth-child(4){
+	.game-arena[data-level="4"] .bars .bar:nth-child(even){
 		animation: even-bars-animate-4 2s infinite;
 	}
+	@keyframes even-bars-animate-4 {
+		0%{ left: 0; }
+		25%{ left: -10%}
+		50%{ left: 0; }
+		75%{ left: 10%;}
+		100%{ left: 0; }
+	}
+	
 	.game-menu-btn {
 		width: 25%;
 		padding: 1%;
