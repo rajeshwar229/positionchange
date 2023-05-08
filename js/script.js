@@ -25,7 +25,7 @@ $(function(){
 
             // game elements
             gameArena : $('.game-arena'),
-            gameBox : $('.gameBox'), 
+            gameBox : $('.game-box'), 
             livesSpan : $('.lives span'),
             levelSpan : $('.level span'),
             resultText : $('.result-text'),
@@ -257,7 +257,7 @@ $(function(){
                                         }
                                 });
                         }
-                },10);
+                },1);
             
         };
 
