@@ -115,6 +115,7 @@ button{
     height: 1%;
     background: #222;
     position: absolute;
+	outline : 5px dotted red;
 }
 .bar.bottom-bar{
 	bottom: 0;
@@ -291,11 +292,9 @@ button{
 	.game-arena[data-level="3"] .bars .bar:last-child{
 		display: none;
 	}
-	.game-arena[data-level="3"] .bars .bar{
-		margin: 0 14%;
-	}
+	.game-arena[data-level="3"] .bars .bar,
 	.game-arena[data-level="4"] .bars .bar{
-		margin: 0 15%;
+		margin: 0 14%;
 	}
 	.game-arena[data-level="4"] .bars .bar:nth-child(4){
 		display: none;
