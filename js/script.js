@@ -158,8 +158,6 @@ $(function(){
                         if(!gameObj.over){
                                 let touchLeft = parseInt(event.pageX);
                                 let touchTop = parseInt(event.pageY);
-                                let boxLeft = DOM.gameBox.offset().left;
-                                let boxRelativeWidth = boxLeft + DOM.gameBox.innerWidth();
                                 const boxMove = function (a,b){
                                         DOM.gameBox.css({"left":touchLeft-a,"top":touchTop-b, "background":"rgb("+Math.round(Math.random()*255) +","+Math.round(Math.random()*255) +","+Math.round(Math.random()*255) +")"});
                                 }
@@ -170,13 +168,6 @@ $(function(){
                                 }
                                 
                                 boxMove(20,20);
-                                                
-                                if(boxRelativeWidth >= DOM.gameArena.width()){
-                                        gameObj.start.levelUp = true;
-                                        gameCtrl.addCSS(DOM.gameBox, `{"left":"3%" ,"top":"48%"}`);
-                                        !gameObj.over && gameObj.start.mouseMoveOff();
-                                        gameCtrl.animateElement(DOM.gameCover, `{"width": "100%"}`).animateElement(DOM.gameCover, `{"width": "0"}`);
-                                }
                         }
                 }
             }
@@ -238,17 +229,13 @@ $(function(){
                 DOM.gameBox.on("mouseleave touchend",function(event){
                         gameObj.start.lifeCount();
                         gameObj.lifeLost = false;
-                        gameObj.lives && gameObj.start.levelUp && gameObj.level <= 5 && ++gameObj.level;
-                        gameObj.start.levelUp = false;
-                        gameCtrl.attrChange(DOM.gameArena, 'data-level', gameObj.level)
-                                .addContent(DOM.levelSpan, gameObj.level);
                         !gameObj.lives ? gameObj.start.resetGame(false) : gameObj.level > 5 && gameObj.start.resetGame(true);
                 });
             
                 setInterval(function(){
-                        if(!gameObj.over){
+                        if(!gameObj.over && DOM.gameArena.is(':visible')){
+                                let gameBoxPosition = DOM.gameBox[0].getBoundingClientRect();
                                 DOM.visibleEnemy().each(function(){
-                                        let gameBoxPosition = DOM.gameBox[0].getBoundingClientRect();
                                         let enemyPostion = $(this)[0].getBoundingClientRect();
                                         if(gameBoxPosition.right >= enemyPostion.left && gameBoxPosition.left <=  enemyPostion.right && gameBoxPosition.top <= enemyPostion.bottom && gameBoxPosition.bottom >= enemyPostion.top ){
                                                 gameObj.lifeLost = true;
@@ -256,6 +243,18 @@ $(function(){
                                                 gameCtrl.addCSS(DOM.gameBox, `{"left":"3%" ,"top":"48%"}`);
                                         }
                                 });
+
+                                if(gameBoxPosition.right >= DOM.gameArena.width()){
+                                        gameObj.start.levelUp = true;
+                                        !gameObj.over && gameObj.start.mouseMoveOff();
+                                        gameObj.lives && gameObj.start.levelUp && gameObj.level <= 5 && ++gameObj.level;
+                                        gameObj.start.levelUp = false;
+                                        gameCtrl.animateElement(DOM.gameCover, `{"width": "100%"}`)
+                                                .animateElement(DOM.gameCover, `{"width": "0"}`)
+                                                .attrChange(DOM.gameArena, 'data-level', gameObj.level)
+                                                .addContent(DOM.levelSpan, gameObj.level)
+                                                .addCSS(DOM.gameBox, `{"left":"3%" ,"top":"48%"}`);
+                                }
                         }
                 },1);
             
