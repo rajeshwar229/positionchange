@@ -166,8 +166,11 @@ $(function(){
                                         touchTop = event.originalEvent.changedTouches[0].clientY;
                                         boxMove(10,10);
                                 }
-                                
                                 boxMove(20,20);
+
+                                if (ev.targetTouches.length === 2 && ev.changedTouches.length === 2) {
+                                        alert('two fingers touched!');
+                                }
                         }
                 }
             }
