@@ -167,10 +167,10 @@ $(function(){
                                         boxMove(10,10);
                                 }
                                 boxMove(20,20);
-
-                                if (event.originalEvent.targetTouches.length === 2) {
-                                        alert('two fingers touched in box!');
+                                if(event.originalEvent.changedTouches.length >= 2){
+                                        alert(event.originalEvent.changedTouches.length);
                                 }
+                                        
                         }
                 }
             }
@@ -233,12 +233,6 @@ $(function(){
                         gameObj.start.lifeCount();
                         gameObj.lifeLost = false;
                         !gameObj.lives ? gameObj.start.resetGame(false) : gameObj.level > 5 && gameObj.start.resetGame(true);
-                });
-
-                DOM.documentEle.on("touchstart", function(event){
-                        if (event.originalEvent.targetTouches.length === 2) {
-                                alert('two fingers touched!');
-                        }
                 });
             
                 setInterval(function(){
