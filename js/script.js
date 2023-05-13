@@ -235,7 +235,7 @@ $(function(){
                         !gameObj.lives ? gameObj.start.resetGame(false) : gameObj.level > 5 && gameObj.start.resetGame(true);
                 });
 
-                DOM.document.on("touchstart", function(event){
+                DOM.documentEle.on("touchstart", function(event){
                         if (event.targetTouches.length === 2) {
                                 alert('two fingers touched!');
                         }
