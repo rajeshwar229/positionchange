@@ -219,6 +219,9 @@ button{
     top: 0;
     z-index: 2;
 }
+h1.remove-finger{
+    text-align: center;
+}
 
 .help-page{		
 	font-size: 1.8rem;
@@ -318,6 +321,9 @@ button{
 		width: 25%;
 		padding: 1%;
 	}
+	h1.remove-finger{
+		color: white;
+	}
 }
 @media (orientation: landscape) and (max-height: 480px) {
 	.game-arena .game-box{
@@ -348,5 +354,8 @@ button{
 		top: 15%;
 		width: 15%;
 		padding: 0%;
+	}
+	h1.remove-finger{
+		color: white;
 	}
 }
