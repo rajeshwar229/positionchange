@@ -358,4 +358,11 @@ h1.remove-finger{
 	h1.remove-finger{
 		color: white;
 	}
+
+	.game-arena[data-level="4"] .bars .bar:nth-child(odd){
+		animation: odd-bars-animate-4 1.5s infinite;
+	}
+	.game-arena[data-level="4"] .bars .bar:nth-child(even){
+		animation: even-bars-animate-4 1.5s infinite;
+	}
 }
