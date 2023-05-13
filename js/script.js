@@ -166,11 +166,7 @@ $(function(){
                                         touchTop = event.originalEvent.changedTouches[0].clientY;
                                         boxMove(10,10);
                                 }
-                                boxMove(20,20);
-                                if(event.originalEvent.changedTouches.length >= 2){
-                                        alert(event.originalEvent.changedTouches.length);
-                                }
-                                        
+                                boxMove(20,20);        
                         }
                 }
             }
@@ -232,6 +228,7 @@ $(function(){
                 DOM.gameBox.on("mouseleave touchend",function(event){
                         gameObj.start.lifeCount();
                         gameObj.lifeLost = false;
+                        gameCtrl.animateElement(DOM.gameCover, `{"width": "0"}`)
                         !gameObj.lives ? gameObj.start.resetGame(false) : gameObj.level > 5 && gameObj.start.resetGame(true);
                 });
             
@@ -253,7 +250,6 @@ $(function(){
                                         gameObj.lives && gameObj.start.levelUp && gameObj.level <= 5 && ++gameObj.level;
                                         gameObj.start.levelUp = false;
                                         gameCtrl.animateElement(DOM.gameCover, `{"width": "100%"}`)
-                                                .animateElement(DOM.gameCover, `{"width": "0"}`)
                                                 .attrChange(DOM.gameArena, 'data-level', gameObj.level)
                                                 .addContent(DOM.levelSpan, gameObj.level)
                                                 .addCSS(DOM.gameBox, `{"left":"3%" ,"top":"48%"}`);
