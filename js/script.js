@@ -168,8 +168,8 @@ $(function(){
                                 }
                                 boxMove(20,20);
 
-                                if (event.targetTouches.length === 2) {
-                                        alert('two fingers touched!');
+                                if (event.originalEvent.targetTouches.length === 2) {
+                                        alert('two fingers touched in box!');
                                 }
                         }
                 }
@@ -236,7 +236,7 @@ $(function(){
                 });
 
                 DOM.documentEle.on("touchstart", function(event){
-                        if (event.targetTouches.length === 2) {
+                        if (event.originalEvent.targetTouches.length === 2) {
                                 alert('two fingers touched!');
                         }
                 });
