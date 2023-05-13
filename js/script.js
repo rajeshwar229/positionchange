@@ -168,7 +168,7 @@ $(function(){
                                 }
                                 boxMove(20,20);
 
-                                if (ev.targetTouches.length === 2 && ev.changedTouches.length === 2) {
+                                if (ev.targetTouches.length === 2) {
                                         alert('two fingers touched!');
                                 }
                         }
